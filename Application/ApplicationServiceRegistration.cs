@@ -8,7 +8,9 @@ namespace Application
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<UserRegistrationUseCase>();
-            services.AddScoped <ApplyDiscountUseCase>();
+            services.AddScoped<ApplyDiscountUseCase>();
+            services.AddScoped <TransferInventoryUseCase>();
+            services.AddScoped<StockReportUseCase>();
             return services;
         }
     }

@@ -15,7 +15,7 @@ namespace Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             // Define el Esquema "Ventas" y la tabla "Productos"
-            builder.ToTable("Productos", "Ventas");
+            builder.ToTable("Productos", "Logistica");
 
             // Define la Clave Primaria (PK)
             builder.HasKey(p => p.ProductId);
@@ -33,11 +33,14 @@ namespace Infrastructure.Persistence.Configurations
                 .IsUnicode(false); // Importante: .IsUnicode(false) para que use 'varchar' en lugar de 'nvarchar'
 
             // Configura Categoria
-            builder.Property(p => p.Categoy)
-                .HasColumnName("Categoria")
-                .IsRequired()
-                .HasMaxLength(50)
-                .IsUnicode(false); // Usa 'varchar'
+            builder.Property(p => p.CategoryId)
+                .HasColumnName("CategoriaId")
+                .IsRequired();
+
+            builder.HasOne(p => p.Category)
+                .WithMany()
+                .HasForeignKey(p => p.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Configura Precio
             builder.Property(p => p.Price)
@@ -45,11 +48,15 @@ namespace Infrastructure.Persistence.Configurations
                 .IsRequired()
                 .HasColumnType("decimal(10, 2)"); // Especifica la precisión y escala
 
+            builder.HasMany(p => p.InventoryItems)
+                .WithOne(i => i.Product)
+                .HasForeignKey(i => i.ProductId);
+
             // Configura PrecioConDescuento (anulable)
-            builder.Property(p => p.DiscountPrice)
-                .HasColumnName("PrecioConDescuento")
-                .IsRequired(false) // Permite valores NULL
-                .HasColumnType("decimal(10, 2)");
+            /* builder.Property(p => p.DiscountPrice)
+                 .HasColumnName("PrecioConDescuento")
+                 .IsRequired(false) // Permite valores NULL
+                 .HasColumnType("decimal(10, 2)");*/
         }
     }
 }

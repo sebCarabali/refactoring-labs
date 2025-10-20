@@ -1,9 +1,11 @@
 ﻿using Domain.Ports;
 using Domain.Ports.Repositories;
+using Domain.Ports.Repositories.Inventory;
 using Domain.Ports.Repositories.Sales;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Sales;
 using Infrastructure.Repositories;
+using Infrastructure.Repositories.Inventory;
 using Infrastructure.Repositories.Sales;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +20,9 @@ namespace Infrastructure
             services.AddScoped<IUserRepository, UserRepositoriEfAdapter>();
             services.AddScoped<IProductRepository, ProductRepositoryEfAdapter>();
             services.AddScoped<IClientRepository, ClientRepositoryEfAdapter>();
+            services.AddScoped<IMovementLogRepository, MovementLogRepositoryEfAdapter>();
+            services.AddScoped<IInventoryRepository, InventoryRepositoryEfAdapter>();
+            services.AddScoped<IStockReportRepository, StockReportRepositoryEfAdapter>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<SalesUnitOfWork>();
             services.AddDbContext<SalesDbContext>(options =>

@@ -11,7 +11,7 @@ namespace Domain.Models.Sales.Discount
         private const string ElectronicCategory = "Electronica";
         public decimal GetDiscountPercentage(Product product)
         {
-            if (product.Categoy == ElectronicCategory)
+            if (product.Category.Name == ElectronicCategory)
             {
                 return 0.10m; // 10% en electrónica
             }
