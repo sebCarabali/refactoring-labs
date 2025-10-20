@@ -9,6 +9,8 @@ namespace Domain
         {
             services.AddScoped<UserRegistrationService>();
             services.AddScoped<DiscountService>();
+            services.AddScoped<TransferStockService>();
+            services.AddScoped<StockReportService>();
             return services;
         }
     }
